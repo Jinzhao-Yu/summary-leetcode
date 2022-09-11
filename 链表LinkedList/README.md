@@ -29,7 +29,38 @@
   <summary><a href="https://leetcode.cn/problems/reverse-linked-list/">206. Reverse Linked List</a></summary>
 
 ```python
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+```
+- 双指针方法
+```python
   # Two pointers
-  
+  pre,cur = None,head
+  while cur is not None:
+    temp = cur.next #将当前节点的后面部分存下来
+    cur.next = pre #将当前节点反向链接到上一个节点上
+    pre,cur = cur,temp #更新上一个节点和当前节点的定义
+  return pre
+```
+- Recursion迭代
+```python
+  # recursion
+  # 本质上是从后往前对链表进行操作
+  if head is None or head.next is None:
+    return head
+
+  reversed_list = self.reverseList(head.next) #将已经反转好的部分存下来
+  head.next.next = head #将反转好的末尾节点与当前节点连起来
+  head.next = None #将当前节点与下一个节点的链接断开
+  return reversed_list
 ```
 </details>
