@@ -64,3 +64,52 @@ class Solution(object):
   return reversed_list
 ```
 </details>
+<details>
+  <summary><a href="https://leetcode.cn/problems/delete-node-in-a-linked-list/">237. Delete Node in a Linked List</a></summary>
+由于题目要求不使用链表的头节点，同时给出需要删除的是一个链表的形式，因此只需要在链表中找到需要删除的节点，将该节点的val改为下一个节点的val，再连接到下一个的下一个节点上即可
+
+```python
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+class Solution(object):
+    def deleteNode(self, node):
+        """
+        :type node: ListNode
+        :rtype: void Do not return anything, modify node in-place instead.
+        """
+        node.val = node.next.val
+        node.next = node.next.next
+```
+</details>
+<details>
+  <summary><a href="https://leetcode.cn/problems/linked-list-cycle/">141. Linked List Cycle</a></summary>
+方法：快慢节点，如果快节点可以追上慢节点，证明存在循环
+
+```python
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def hasCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        # 快慢节点
+        if head is None:
+            return False
+        slow,fast = head,head.next
+        while slow != fast:
+            if fast is None or fast.next is None:
+                return False
+            slow = slow.next
+            fast = fast.next.next
+        
+        return True
+```
